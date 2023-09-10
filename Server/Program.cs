@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Builder;
+using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 
 var builder =
@@ -8,6 +9,8 @@ var builder =
 builder.Services.AddRazorPages();
 
 var app = builder.Build();
+
+app.UseHsts();
 
 app.UseHttpsRedirection();
 
