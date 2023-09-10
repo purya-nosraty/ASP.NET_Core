@@ -37,6 +37,14 @@
 		{
 			"library": "popper.js@2.11.8",
 			"destination": "wwwroot/lib/popper.js/"
+		},
+		{
+			"library": "toastr.js@2.1.4",
+			"destination": "wwwroot/lib/toastr/"
+		},
+		{
+			"library": "tinymce@6.7.0",
+			"destination": "wwwroot/lib/tinymce/"
 		}
 	]
 }
