@@ -1,0 +1,39 @@
+﻿@page
+@model Server.Pages.ContactModel
+@{
+	ViewData["PageTitle"] = "Contact";
+}
+
+<div id="contactPage">
+	<div class="row">
+		<div class="col rtl">
+			@(Resources.DataDictionary.CellPhoneNumber)
+			<a href="tel: 09356685894">09356685894</a>
+
+			<hr />
+
+			@(Resources.DataDictionary.EmailAddress)
+			<a href="mailto: purya.nosraty@gmail.com" target="_blank">purya.nosraty@gmail.com</a>
+
+			<hr />
+
+			@(Resources.DataDictionary.SocialNetworks)
+			نشانی واتساپ:
+			<a href="https://api.whatsapp.com/send?phone=09356685894" target="_blank">09356685894</a>
+			<hr />
+			آیدی تلگرام:
+			<a href="https://t.me/pouria_nosratii" target="_blank">pouria_nosratii</a>
+			<hr />
+			آیدی اینستاگرام:
+			<a href="https://www.instagram.com/puria.nosrati.violin" target="_blank">poria.nosrati.violin</a>
+
+			<br /><hr />
+			Age: @Model.AdminSettings.Age
+			<br /><hr />
+			Name: @Model.AdminSettings.Name
+			<br /><hr />
+			Nationa Code: @Model.AdminSettings.NationalCode
+			<br /><hr />
+		</div>
+	</div>
+</div>
