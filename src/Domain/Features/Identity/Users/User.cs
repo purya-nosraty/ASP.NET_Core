@@ -1,25 +1,31 @@
-﻿using Shared;
-using Domain.Features.Identity.Users.Enums;
+﻿using System;
+using Shared;
+using Resources.Messages;
+using Domain.Features.Identity.Roles;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Features.Identity.Users;
 
 public class User
-	(string username, string password, Role role) : Seedwork.Entity
+	(string username, string password) : Seedwork.Entity
 {
 	/// <summary>
 	/// شناسه کاربری
 	/// </summary>
 	[Required
 		(AllowEmptyStrings = false,
-		ErrorMessageResourceType = typeof(Resources.Messages.Validations),
-		ErrorMessageResourceName = nameof(Resources.Messages.Validations.Required))]
+		ErrorMessageResourceType = typeof(Validations),
+		ErrorMessageResourceName = nameof(Validations.Required))]
 	[StringLength
 		(maximumLength: Utility.UsernameMaxLength,
 		MinimumLength = Utility.UsernameMinLength,
-		ErrorMessageResourceType = typeof(Resources.Messages.Validations),
-		ErrorMessageResourceName = nameof(Resources.Messages.Validations.StringLength))]
+		ErrorMessageResourceType = typeof(Validations),
+		ErrorMessageResourceName = nameof(Validations.StringLength))]
 	public string Username { get; set; } = username;
+
+
+	//***********************************************
 
 
 	/// <summary>
@@ -27,45 +33,42 @@ public class User
 	/// </summary>
 	[Required
 		(AllowEmptyStrings = false,
-		ErrorMessageResourceType = typeof(Resources.Messages.Validations),
-		ErrorMessageResourceName = nameof(Resources.Messages.Validations.StringLength))]
+		ErrorMessageResourceType = typeof(Validations),
+		ErrorMessageResourceName = nameof(Validations.StringLength))]
 	[StringLength
 		(maximumLength: Utility.PasswordMinLength,
 		MinimumLength = Utility.PasswordMinLength,
-		ErrorMessageResourceType = typeof(Resources.Messages.Validations),
-		ErrorMessageResourceName = nameof(Resources.Messages.Validations.StringLength))]
+		ErrorMessageResourceType = typeof(Validations),
+		ErrorMessageResourceName = nameof(Validations.StringLength))]
 	public string Password { get; set; } = password;
 
 
-	/// <summary>
-	/// نقش
-	/// </summary>
-	[Required
-		(AllowEmptyStrings = false,
-		ErrorMessageResourceType = typeof(Resources.Messages.Validations),
-		ErrorMessageResourceName = nameof(Resources.Messages.Validations.Required))]
-	public Role Role { get; set; } = role;
+	//***********************************************
 
 
 	/// <summary>
 	/// سن
 	/// </summary>
-	[MaxLength
-		(length: Utility.AgeMaxLength,
-		ErrorMessageResourceType = typeof(Resources.Messages.Validations),
-		ErrorMessageResourceName = nameof(Resources.Messages.Validations.MaxLength))]
+	[Range(minimum: 1, maximum: 120)]
 	public byte Age { get; set; }
+
+
+	//***********************************************
 
 
 	/// <summary>
 	/// نام و نام خانوادگی
 	/// </summary>
+	[Display(Name = nameof(Resources.DataDictionary.FullName))]
 	[StringLength
 		(maximumLength: Utility.UsernameMinLength,
 		MinimumLength = Utility.UsernameMinLength,
-		ErrorMessageResourceType = typeof(Resources.Messages.Validations),
-		ErrorMessageResourceName = nameof(Resources.Messages.Validations.StringLength))]
+		ErrorMessageResourceType = typeof(Validations),
+		ErrorMessageResourceName = nameof(Validations.StringLength))]
 	public string? FullName { get; set; }
+
+
+	//***********************************************
 
 
 	/// <summary>
@@ -73,13 +76,42 @@ public class User
 	/// </summary>
 	[MaxLength
 		(length: Utility.DescriptionMaxLength,
-		ErrorMessageResourceType = typeof(Resources.Messages.Validations),
-		ErrorMessageResourceName = nameof(Resources.Messages.Validations.MaxLength))]
+		ErrorMessageResourceType = typeof(Validations),
+		ErrorMessageResourceName = nameof(Validations.MaxLength))]
 	public string? Description { get; set; }
+
+
+	//***********************************************
 
 
 	/// <summary>
 	/// وضعیت فعال بودن
 	/// </summary>
+	[Display(Name = nameof(Resources.DataDictionary.IsActive))]
 	public bool IsActive { get; set; }
+
+
+	//***********************************************
+
+
+	/// <summary>
+	/// شناسه نقش
+	/// </summary>
+	[Required
+		(ErrorMessageResourceType = typeof(Validations),
+		ErrorMessageResourceName = nameof(Validations.Required))]
+	public Guid RoleId { get; set; }
+	public virtual Role? Role { get; set; }
+
+
+	//***********************************************
+
+	/// <summary>
+	/// مرتبه
+	/// </summary>
+	//[Column(Order = 100_000)]
+	[Range(minimum: 0, maximum: 100_000)]
+	public int Ordering { get; set; }
+
+	//***********************************************
 }

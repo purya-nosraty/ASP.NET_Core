@@ -8,9 +8,10 @@ using System.Collections.Generic;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Builder;
 
-namespace Infrastructue.Middlewares;
+namespace Server.Infrastructure.Middlewares;
 
-public class CultureCookieHandlerMiddleware
+public class CultureCookieHandlerMiddleware(RequestDelegate next,
+		IOptions<RequestLocalizationOptions>? requestLocalizationOptions)
 {
 	#region StaticMembers
 	private readonly static string CookieName = "Culture.Cookie";
@@ -45,7 +46,7 @@ public class CultureCookieHandlerMiddleware
 		if (!string.IsNullOrWhiteSpace(cultureName))
 		{
 			cultureName =
-				cultureName.Substring(startIndex: 0, length: 2).ToLower();
+				cultureName[..2].ToLower();
 
 			httpContext.Response.Cookies
 				.Append(key: CookieName, value: cultureName, options: cookieOptions);
@@ -73,19 +74,9 @@ public class CultureCookieHandlerMiddleware
 	}
 	#endregion /StaticMembers
 
-	#region Contructor
-	public CultureCookieHandlerMiddleware
-		(RequestDelegate next,
-		IOptions<RequestLocalizationOptions>? requestLocalizationOptions) : base()
-	{
-		Next = next;
-		RequestLocalizationOptions = requestLocalizationOptions?.Value;
-	}
-	#endregion /Contructor
-
 	#region Properties
-	private RequestDelegate Next { get; }
-	private RequestLocalizationOptions? RequestLocalizationOptions { get; }
+	private RequestDelegate Next { get; } = next;
+	private RequestLocalizationOptions? RequestLocalizationOptions { get; } = requestLocalizationOptions?.Value;
 	#endregion /Properties
 
 	public async Task InvokeAsync(HttpContext httpContext)

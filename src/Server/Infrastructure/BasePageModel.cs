@@ -1,10 +1,10 @@
 ﻿using Microsoft.AspNetCore.Mvc.RazorPages;
 
-namespace Infrastructure;
+namespace Server.Infrastructure;
 
 public abstract class BasePageModel : PageModel
 {
-	public BasePageModel() : base()
+	protected BasePageModel() : base()
 	{
 	}
 }

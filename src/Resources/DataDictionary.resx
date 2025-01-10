@@ -552,4 +552,7 @@
   <data name="AuthorName" xml:space="preserve">
     <value>Puria Nosrati</value>
   </data>
+  <data name="Admin" xml:space="preserve">
+    <value>Admin</value>
+  </data>
 </root>

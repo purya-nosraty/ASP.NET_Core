@@ -1,23 +1,18 @@
 using System.Linq;
-using Infrastructure;
+using Server.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
-using Infrastructue.Middlewares;
 using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Options;
 using Microsoft.AspNetCore.Builder;
+using Server.Infrastructure.Middlewares;
 
 namespace Server.Pages;
 
-public class ChangeCultureModel : BasePageModel
+public class ChangeCultureModel
+	(IOptions<RequestLocalizationOptions>? requestLocalizationOptions) : BasePageModel
 {
-	public ChangeCultureModel
-		(IOptions<RequestLocalizationOptions>? requestLocalizationOptions) : base()
-	{
-		RequestLocalizationOptions =
-			requestLocalizationOptions?.Value;
-	}
+	private RequestLocalizationOptions? RequestLocalizationOptions { get; } = requestLocalizationOptions?.Value;
 
-	private RequestLocalizationOptions? RequestLocalizationOptions { get; }
 
 	public IActionResult OnGet(string? cultureName)
 	{

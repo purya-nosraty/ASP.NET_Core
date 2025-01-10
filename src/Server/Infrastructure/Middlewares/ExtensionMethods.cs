@@ -1,7 +1,6 @@
-﻿using System;
-using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Builder;
 
-namespace Infrastructue.Middlewares;
+namespace Server.Infrastructure.Middlewares;
 
 public static class ExtensionMethods
 {

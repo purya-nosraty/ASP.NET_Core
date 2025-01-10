@@ -11,4 +11,8 @@
 		<ProjectReference Include="..\Resources\Resources.csproj" />
 	</ItemGroup>
 
+	<ItemGroup>
+	  <Folder Include="Features\Identity\Users\Enums\" />
+	</ItemGroup>
+
 </Project>

@@ -1,8 +1,8 @@
 ﻿using Resources;
 using Microsoft.EntityFrameworkCore;
 using Domain.Features.Identity.Users;
-using Domain.Features.Identity.Users.Enums;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
+using Domain.Features.Identity.Roles;
 
 namespace Persistence.Features.Identity.Users;
 
@@ -28,6 +28,8 @@ internal class UserConfiguration() : IEntityTypeConfiguration<User>
 			;
 		#endregion /Id
 
+		//***********************************************
+
 		#region Username
 		builder
 			.Property(current => current.Username)
@@ -42,6 +44,8 @@ internal class UserConfiguration() : IEntityTypeConfiguration<User>
 			;
 		#endregion /Username
 
+		//***********************************************
+
 		#region Password
 		builder
 			.Property(current => current.Password)
@@ -51,19 +55,24 @@ internal class UserConfiguration() : IEntityTypeConfiguration<User>
 			;
 		#endregion /Password
 
-		#region Role
+		//***********************************************
+
+		#region RoleId
 		builder
-			.Property(current => current.Role)
+			.Property(current => current.RoleId)
 			.IsRequired(required: true)
 			;
-		#endregion /Role
+		#endregion /RoleId
+
+		//***********************************************
 
 		#region Age
 		builder
 			.Property(current => current.Age)
-			.HasMaxLength(maxLength: Shared.Utility.AgeMaxLength)
 			;
 		#endregion /Age
+
+		//***********************************************
 
 		#region FullName
 		builder
@@ -77,29 +86,45 @@ internal class UserConfiguration() : IEntityTypeConfiguration<User>
 			;
 		#endregion /FullName
 
+		//***********************************************
+
 		#region Active
 		builder
 			.Property(current => current.IsActive)
 			;
 		#endregion /IsActive
 
-		//*****************************************
-
-		#region SeedData
-		var user =
-			new User
-				(username: "Puria",
-				password: "12345678",
-				role: Role.Admin)
-			{
-				Age = 28,
-				IsActive = true,
-				Description = null,
-				FullName = DataDictionary.AuthorName,
-			};
+		//***********************************************
 
 		builder
-			.HasData(data: user);
+			.Property(current => current.Ordering)
+			;
+
+		//***********************************************
+
+		#region SeedData
+		//var role =
+		//	new Role(name: nameof(DataDictionary.Admin));
+
+		//builder
+		//	.HasData(data: role);
+
+		//var user =
+		//	new User
+		//		(username: "Puria",
+		//		password: "12345678")
+		//	{
+		//		Age = 28,
+		//		IsActive = true,
+		//		RoleId = role.Id,
+		//		Description = null,
+		//		FullName = DataDictionary.AuthorName,
+		//	};
+
+		//builder
+		//	.HasData(data: user);
 		#endregion /SeedData
+
+		//***********************************************
 	}
 }

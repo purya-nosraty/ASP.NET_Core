@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Domain.Features.Identity.Users;
+using Domain.Features.Identity.Roles;
 
 namespace Persistence;
 
@@ -15,6 +16,7 @@ public class ApplicationDatabaseContext : DbContext
 
 	#region Properties
 	public DbSet<User> Users { get; set; }
+	public DbSet<Role> Roles { get; set; }
 	#endregion /Properties
 
 	#region Methods
