@@ -1,8 +1,6 @@
-﻿using Resources;
-using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.EntityFrameworkCore;
 using Domain.Features.Identity.Users;
 using Microsoft.EntityFrameworkCore.Metadata.Builders;
-using Domain.Features.Identity.Roles;
 
 namespace Persistence.Features.Identity.Users;
 
@@ -15,17 +13,6 @@ internal class UserConfiguration() : IEntityTypeConfiguration<User>
 			.HasKey(current => current.Id)
 			.IsClustered(clustered: false)
 			;
-
-		builder
-			.Property(current => current.Id)
-			.IsRequired(required: true)
-			;
-
-		builder
-			.HasIndex(current => current.Id)
-			.IsUnique(unique: true)
-			.IsClustered(clustered: false)
-			;
 		#endregion /Id
 
 		//***********************************************
@@ -35,7 +22,8 @@ internal class UserConfiguration() : IEntityTypeConfiguration<User>
 			.Property(current => current.Username)
 			.IsRequired(required: true)
 			.IsUnicode(unicode: false)
-			.HasMaxLength(maxLength: Shared.Utility.UsernameMaxLength)
+			.IsFixedLength(fixedLength: false)
+			.HasMaxLength(maxLength: Shared.Utility.Const.UsernameMaxLength)
 			;
 
 		builder
@@ -51,24 +39,17 @@ internal class UserConfiguration() : IEntityTypeConfiguration<User>
 			.Property(current => current.Password)
 			.IsRequired(required: true)
 			.IsUnicode(unicode: false)
-			.HasMaxLength(maxLength: Shared.Utility.PasswordMaxLength)
+			.IsFixedLength(fixedLength: false)
+			.HasMaxLength(maxLength: Shared.Utility.Const.PasswordMaxLength)
 			;
 		#endregion /Password
-
-		//***********************************************
-
-		#region RoleId
-		builder
-			.Property(current => current.RoleId)
-			.IsRequired(required: true)
-			;
-		#endregion /RoleId
 
 		//***********************************************
 
 		#region Age
 		builder
 			.Property(current => current.Age)
+			.HasMaxLength(maxLength: Shared.Utility.Const.AgeMaxLength)
 			;
 		#endregion /Age
 
@@ -77,7 +58,10 @@ internal class UserConfiguration() : IEntityTypeConfiguration<User>
 		#region FullName
 		builder
 			.Property(current => current.FullName)
-			.HasMaxLength(maxLength: Shared.Utility.UsernameMaxLength)
+			.IsRequired(required: false)
+			.IsUnicode(unicode: true)
+			.IsFixedLength(fixedLength: false)
+			.HasMaxLength(maxLength: Shared.Utility.Const.FullNameMaxLength)
 			;
 
 		builder
@@ -91,6 +75,7 @@ internal class UserConfiguration() : IEntityTypeConfiguration<User>
 		#region Active
 		builder
 			.Property(current => current.IsActive)
+			.HasColumnName(name: nameof(Resources.DataDictionary.IsActive))
 			;
 		#endregion /IsActive
 
@@ -98,6 +83,7 @@ internal class UserConfiguration() : IEntityTypeConfiguration<User>
 
 		builder
 			.Property(current => current.Ordering)
+			.HasMaxLength(maxLength: 100_000)
 			;
 
 		//***********************************************

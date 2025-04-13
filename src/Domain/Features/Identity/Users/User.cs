@@ -7,6 +7,7 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace Domain.Features.Identity.Users;
 
+[Table(name: nameof(User), Schema = nameof(Identity))]
 public class User
 	(string username, string password) : Seedwork.Entity
 {
@@ -18,15 +19,13 @@ public class User
 		ErrorMessageResourceType = typeof(Validations),
 		ErrorMessageResourceName = nameof(Validations.Required))]
 	[StringLength
-		(maximumLength: Utility.UsernameMaxLength,
-		MinimumLength = Utility.UsernameMinLength,
+		(maximumLength: Utility.Const.RoleNameMaxLength,
+		MinimumLength = Utility.Const.RoleNameMinLength,
 		ErrorMessageResourceType = typeof(Validations),
 		ErrorMessageResourceName = nameof(Validations.StringLength))]
 	public string Username { get; set; } = username;
 
-
 	//***********************************************
-
 
 	/// <summary>
 	/// کلمه عبور
@@ -36,53 +35,46 @@ public class User
 		ErrorMessageResourceType = typeof(Validations),
 		ErrorMessageResourceName = nameof(Validations.StringLength))]
 	[StringLength
-		(maximumLength: Utility.PasswordMinLength,
-		MinimumLength = Utility.PasswordMinLength,
+		(maximumLength: Utility.Const.RoleNameMaxLength,
+		MinimumLength = Utility.Const.RoleNameMinLength,
 		ErrorMessageResourceType = typeof(Validations),
 		ErrorMessageResourceName = nameof(Validations.StringLength))]
 	public string Password { get; set; } = password;
 
-
 	//***********************************************
-
 
 	/// <summary>
 	/// سن
 	/// </summary>
-	[Range(minimum: 1, maximum: 120)]
+	[Range
+		(minimum: Utility.Const.AgeMinLength,
+		maximum: Utility.Const.AgeMaxLength)]
 	public byte Age { get; set; }
 
-
 	//***********************************************
-
 
 	/// <summary>
 	/// نام و نام خانوادگی
 	/// </summary>
 	[Display(Name = nameof(Resources.DataDictionary.FullName))]
 	[StringLength
-		(maximumLength: Utility.UsernameMinLength,
-		MinimumLength = Utility.UsernameMinLength,
+		(maximumLength: Utility.Const.FullNameMaxLength,
 		ErrorMessageResourceType = typeof(Validations),
 		ErrorMessageResourceName = nameof(Validations.StringLength))]
 	public string? FullName { get; set; }
 
-
 	//***********************************************
-
 
 	/// <summary>
 	/// توضیحات
 	/// </summary>
 	[MaxLength
-		(length: Utility.DescriptionMaxLength,
+		(length: Utility.Const.DescriptionMaxLength,
 		ErrorMessageResourceType = typeof(Validations),
 		ErrorMessageResourceName = nameof(Validations.MaxLength))]
 	public string? Description { get; set; }
 
-
 	//***********************************************
-
 
 	/// <summary>
 	/// وضعیت فعال بودن
@@ -90,9 +82,7 @@ public class User
 	[Display(Name = nameof(Resources.DataDictionary.IsActive))]
 	public bool IsActive { get; set; }
 
-
 	//***********************************************
-
 
 	/// <summary>
 	/// شناسه نقش
@@ -102,7 +92,6 @@ public class User
 		ErrorMessageResourceName = nameof(Validations.Required))]
 	public Guid RoleId { get; set; }
 	public virtual Role? Role { get; set; }
-
 
 	//***********************************************
 

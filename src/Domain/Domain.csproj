@@ -7,12 +7,14 @@
 	</PropertyGroup>
 
 	<ItemGroup>
-		<ProjectReference Include="..\Shared\Shared.csproj" />
-		<ProjectReference Include="..\Resources\Resources.csproj" />
+	  <Compile Remove="Features\Identity\Users\Enums\**" />
+	  <EmbeddedResource Remove="Features\Identity\Users\Enums\**" />
+	  <None Remove="Features\Identity\Users\Enums\**" />
 	</ItemGroup>
 
 	<ItemGroup>
-	  <Folder Include="Features\Identity\Users\Enums\" />
+		<ProjectReference Include="..\Shared\Shared.csproj" />
+		<ProjectReference Include="..\Resources\Resources.csproj" />
 	</ItemGroup>
 
 </Project>

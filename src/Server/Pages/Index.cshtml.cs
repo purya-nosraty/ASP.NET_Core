@@ -37,6 +37,7 @@ public class IndexModel : Infrastructure.BasePageModel
 				new Role(name: Resources.DataDictionary.Admin);
 
 			databaseContext.Roles.Add(entity: role);
+
 			await
 				databaseContext.SaveChangesAsync();
 

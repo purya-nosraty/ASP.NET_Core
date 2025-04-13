@@ -19,6 +19,13 @@ internal class RoleConfiguration() : IEntityTypeConfiguration<Role>
 
 		#region Name
 		builder
+			.Property(x => x.Name)
+			.IsRequired(required: true)
+			.IsUnicode(unicode: false)
+			.IsFixedLength(fixedLength: false)
+			;
+
+		builder
 			.HasIndex(x => x.Name)
 			.IsUnique(unique: true)
 			;
@@ -30,6 +37,9 @@ internal class RoleConfiguration() : IEntityTypeConfiguration<Role>
 		builder
 			.HasMany(x => x.Users)
 			.WithOne(nameof(Role))
+			.IsRequired(required: true)
+			.HasForeignKey(x => x.RoleId)
+			.OnDelete(DeleteBehavior.NoAction)
 			;
 		#endregion /Users
 
