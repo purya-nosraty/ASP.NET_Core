@@ -4,8 +4,8 @@ using Microsoft.AspNetCore.Builder;
 using Microsoft.Extensions.Hosting;
 using Server.Infrastructue.Settings;
 using Microsoft.AspNetCore.Localization;
-using Microsoft.Extensions.DependencyInjection;
 using Server.Infrastructure.Middlewares;
+using Microsoft.Extensions.DependencyInjection;
 
 namespace Server;
 
@@ -13,6 +13,7 @@ internal static class Program
 {
 	static Program()
 	{
+
 	}
 
 	private static async Task Main()
