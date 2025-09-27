@@ -1,6 +1,6 @@
 # ASP.NET_Core
 
-A sample ASP.NET Core solution contained under `Solution.sln`. This repository includes a `src` folder and front-end assets (JavaScript/SCSS/CSS), suggesting there's a client or static assets alongside the server-side code.
+A sample ASP.NET Core solution contained under `Solution.sln`. This repository includes a `src` folder and front-end assets (Bootstrap, JavaScript, HTML, CSS), suggesting there's a client or static assets alongside the server-side code.
 
 ---
 
